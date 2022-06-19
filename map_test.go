@@ -16,15 +16,6 @@ func TestMapKeys(t *testing.T) {
 	}
 }
 
-func TestMapKeys_panic(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Errorf("MapKeys: expected panic, got nil")
-		}
-	}()
-	MapKeys("panic")
-}
-
 func TestMapKeys_nil(t *testing.T) {
 	var m map[string]string
 	keys := MapKeys(m)
@@ -45,15 +36,6 @@ func TestInterfaceMap(t *testing.T) {
 	if im["a"] != "b" || im["c"] != "d" {
 		t.Errorf("InterfaceMap: expected keys to be 'a' and 'c', got %v", im)
 	}
-}
-
-func TestInterfaceMap_panic(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Errorf("InterfaceMap: expected panic, got nil")
-		}
-	}()
-	InterfaceMap("panic")
 }
 
 func TestInterfaceMap_nil(t *testing.T) {
