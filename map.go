@@ -3,30 +3,23 @@ package fkmap
 import "reflect"
 
 // MapKeys is a slice of keys of a map.
-func MapKeys(mapValue interface{}) []interface{} {
+func MapKeys[K comparable, V any](mapValue map[K]V) []K {
 	s := reflect.ValueOf(mapValue)
-	if s.Kind() != reflect.Map {
-		panic("InterfaceMap: argument is not a map")
-	}
 
 	if s.IsNil() {
 		return nil
 	}
 
-	keys := make([]interface{}, s.Len())
+	keys := make([]K, s.Len())
 	for i, k := range s.MapKeys() {
-		keys[i] = k.Interface()
+		keys[i] = k.Interface().(K)
 	}
 	return keys
 }
 
 // InterfaceMap is a map of interfaces.
-func InterfaceMap(mapValue interface{}) map[interface{}]interface{} {
+func InterfaceMap[K comparable, V any](mapValue map[K]V) map[interface{}]interface{} {
 	s := reflect.ValueOf(mapValue)
-	if s.Kind() != reflect.Map {
-		panic("InterfaceMap: argument is not a map")
-	}
-
 	if s.IsNil() {
 		return nil
 	}
