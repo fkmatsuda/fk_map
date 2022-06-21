@@ -3,7 +3,7 @@ package fkmap
 import (
 	"testing"
 
-	fkslice "github.com/fkmatsuda/fk_slice"
+	fkslice "github.com/fkmatsuda/fk_slice/v2"
 )
 
 func TestMapKeys(t *testing.T) {
@@ -15,11 +15,11 @@ func TestMapKeys(t *testing.T) {
 	if len(keys) != 2 {
 		t.Errorf("MapKeys: expected 2 keys, got %d", len(keys))
 	}
-	_, found := fkslice.FindInSlice(fkslice.InterfaceSlice(keys), "a")
+	_, found := fkslice.FindInSlice(keys, "a")
 	if !found {
 		t.Errorf("MapKeys: it is expected that the key \"a\" is found, got %v", keys)
 	}
-	_, found = fkslice.FindInSlice(fkslice.InterfaceSlice(keys), "c")
+	_, found = fkslice.FindInSlice(keys, "c")
 	if !found {
 		t.Errorf("MapKeys: it is expected that the key \"c\" is found, got %v", keys)
 	}
