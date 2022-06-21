@@ -1,6 +1,10 @@
 package fkmap
 
-import "testing"
+import (
+	"testing"
+
+	fkslice "github.com/fkmatsuda/fk_slice/v2"
+)
 
 func TestMapKeys(t *testing.T) {
 	m := map[string]string{
@@ -11,18 +15,14 @@ func TestMapKeys(t *testing.T) {
 	if len(keys) != 2 {
 		t.Errorf("MapKeys: expected 2 keys, got %d", len(keys))
 	}
-	if keys[0] != "a" || keys[1] != "c" {
-		t.Errorf("MapKeys: expected keys to be 'a' and 'c', got %v", keys)
+	_, found := fkslice.FindInSlice(keys, "a")
+	if !found {
+		t.Errorf("MapKeys: it is expected that the key \"a\" is found, got %v", keys)
 	}
-}
-
-func TestMapKeys_panic(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Errorf("MapKeys: expected panic, got nil")
-		}
-	}()
-	MapKeys("panic")
+	_, found = fkslice.FindInSlice(keys, "c")
+	if !found {
+		t.Errorf("MapKeys: it is expected that the key \"c\" is found, got %v", keys)
+	}
 }
 
 func TestMapKeys_nil(t *testing.T) {
@@ -45,15 +45,6 @@ func TestInterfaceMap(t *testing.T) {
 	if im["a"] != "b" || im["c"] != "d" {
 		t.Errorf("InterfaceMap: expected keys to be 'a' and 'c', got %v", im)
 	}
-}
-
-func TestInterfaceMap_panic(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Errorf("InterfaceMap: expected panic, got nil")
-		}
-	}()
-	InterfaceMap("panic")
 }
 
 func TestInterfaceMap_nil(t *testing.T) {
